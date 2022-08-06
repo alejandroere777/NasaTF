@@ -1,7 +1,7 @@
 const User = require('../models/users.model');
 const { saveUser, deleteUser } = require('../services/databases/users.service');
 
-async function addUser(req, res){
+async function addUser(req, res) {
     try {
         const data = req.body;
         const result = await saveUser(data);
@@ -13,9 +13,9 @@ async function addUser(req, res){
     }
 }
 
-async function getUsers(req, res){
-    const {province} = req.query;
-    const query = {province};
+async function getUsers(req, res) {
+    const { province } = req.query;
+    const query = { province };
     await User.find(query)
         .then(data => {
             res.json(data);
@@ -27,7 +27,7 @@ async function getUsers(req, res){
 
 }
 
-async function getUserById(req, res){
+async function getUserById(req, res) {
     const { id } = req.params;
     const user = await User.findById(id)
         .then(data => {
@@ -40,12 +40,13 @@ async function getUserById(req, res){
 
 }
 
-async function updateUserById(req, res){
+async function updateUserById(req, res) {
     const { id } = req.params;
     const data = req.body;
     await User.findById(id)
         .then((user) => {
             user.name = data.name;
+            user.email = data.email;
             user.province = data.province;
             user.pets = data.pets;
             user.save();
@@ -59,23 +60,23 @@ async function updateUserById(req, res){
             console.error(err);
             res.json(err);
         })
-        
+
 }
 
-async function deleteUserById(req, res){
-    try{
+async function deleteUserById(req, res) {
+    try {
         const { id } = req.params;
         const result = await deleteUser(id);
         res.json(result);
-    } catch(err){
+    } catch (err) {
         res.status(err.status || 500);
         res.json(err);
     }
 }
 
-module.exports = { 
-    addUser, 
-    getUsers, 
+module.exports = {
+    addUser,
+    getUsers,
     getUserById,
     updateUserById,
     deleteUserById

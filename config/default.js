@@ -1,6 +1,6 @@
 require('dotenv').config();
-const mongoUser = process.env.MONGO_USER;
-const mongoPass = process.env.MONGO_PASS;
+const mongoUser = process.env.INCLUIT_TRAINING_MONGO_USER;
+const mongoPass = process.env.INCLUIT_TRAINING_MONGO_PASS;
 
 module.exports = {
     services: {
